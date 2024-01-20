@@ -1,46 +1,41 @@
 package com.example.motive8quotes
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.motive8quotes.ui.theme.Motive8QuotesTheme
+import com.example.motive8quotes.activities.QuoteListScreen
+import com.example.motive8quotes.ui.theme.DataManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Launched a coroutine so that the loading of data takes place on main thread
+        CoroutineScope(Dispatchers.IO).launch{
+            DataManager.LoadDataFromFile(applicationContext)
+        }
         setContent {
-            Motive8QuotesTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+            App()
+
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun App() {
+    if(DataManager.isDataLoaded.value){
+        QuoteListScreen(data = DataManager.quote) {
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Motive8QuotesTheme {
-        Greeting("Android")
+        }
     }
 }
+

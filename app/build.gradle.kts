@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
-
 android {
     namespace = "com.example.motive8quotes"
     compileSdk = 34
@@ -67,7 +66,17 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    implementation ("androidx.compose.material3:material3-icons-core:1.0.0-alpha04")
-    implementation ("androidx.compose.material3:material3-icons-extended:1.0.0-alpha04")
 
+    //library for more google icons
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+
+    //gson
+    implementation ("com.google.code.gson:gson:2.10")
+
+
+    val composeBom = platform("androidx.compose:compose-bom:2023.10.01")
+    implementation(composeBom)
+
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-tooling-preview")
 }
