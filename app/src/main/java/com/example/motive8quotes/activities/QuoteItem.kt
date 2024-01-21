@@ -29,12 +29,12 @@ import com.example.motive8quotes.models.quotesModel
 
 
 @Composable
-fun QuoteItem(quote: quotesModel , onClick:() ->Unit) {
+fun QuoteItem(quote: quotesModel , onClick:(quote:quotesModel) ->Unit) {
 
     Card(
         elevation = CardDefaults.cardElevation(4.dp),
         modifier = Modifier.padding(8.dp)
-            .clickable { onClick() }
+            .clickable { onClick(quote) }
     ) {
         Row(
             modifier = Modifier.padding(16.dp)
@@ -56,7 +56,7 @@ fun QuoteItem(quote: quotesModel , onClick:() ->Unit) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = quote.quote,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Justify,
                     color = Color.Black,
                     fontWeight = FontWeight.Bold
                 )
@@ -70,8 +70,8 @@ fun QuoteItem(quote: quotesModel , onClick:() ->Unit) {
                 Text(
                     fontFamily = FontFamily.Cursive,
                     text = quote.author,
+                    fontWeight = FontWeight.Bold,
                     color = Color.Black,
-                    fontWeight = FontWeight.Thin,
                 )
             }
         }

@@ -1,5 +1,6 @@
 package com.example.motive8quotes.activities
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,10 +28,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.motive8quotes.models.quotesModel
+import com.example.motive8quotes.ui.theme.DataManager
 
 @Composable
 
 fun QuoteDetail(quote: quotesModel) {
+
+    BackHandler {
+        DataManager.SwitchPages(null)
+    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier

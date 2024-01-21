@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
+import com.example.motive8quotes.activities.QuoteDetail
 import com.example.motive8quotes.activities.QuoteListScreen
 import com.example.motive8quotes.ui.theme.DataManager
 import kotlinx.coroutines.CoroutineScope
@@ -33,9 +34,17 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     if(DataManager.isDataLoaded.value){
-        QuoteListScreen(data = DataManager.quote) {
-
+        if(DataManager.currentPage.value==Screens.Listing) {
+            QuoteListScreen(data = DataManager.quote) {
+                DataManager.SwitchPages(it)
+            }
         }
+    }else{
+        DataManager.currentQuote?.let { QuoteDetail(quote = it) }
     }
+}
+enum class Screens{
+    Listing,
+    Detail
 }
 

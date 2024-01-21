@@ -16,7 +16,7 @@ import com.example.motive8quotes.models.quotesModel
 
 
 @Composable
-fun QuoteListScreen(data: Array<quotesModel>, onClick: () -> Unit) {
+fun QuoteListScreen(data: Array<quotesModel>, onClick: (quote:quotesModel) -> Unit) {
     Column {
         Text(
             text = "Quotes",
@@ -26,9 +26,7 @@ fun QuoteListScreen(data: Array<quotesModel>, onClick: () -> Unit) {
                 .fillMaxWidth(1f)
                 .padding(8.dp, 24.dp)
         )
-        QuoteList(data = data) {
-            onClick()
-        }
+        QuoteList(data = data ,  onClick)
     }
 
 }
